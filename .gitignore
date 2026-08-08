@@ -1,0 +1,23 @@
+# Arduino / PlatformIO build output
+build/
+.pio/
+
+# Compiled artifacts
+*.bin
+*.elf
+*.map
+*.hex
+
+# Temporary logs
+*.log
+*.tmp
+*.bak
+
+# Editor temporary files
+*~
+*.swp
+*.swo
+*.swn
+.DS_Store
+.vscode/
+.idea/

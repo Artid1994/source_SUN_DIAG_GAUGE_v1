@@ -1,0 +1,34 @@
+Read the project control files first:
+AGENTS.md
+PROJECT_SUMMARY.md
+CODEX_WORKFLOW.md
+TEST_GATE.md
+CODEX_ERRORS.md
+CODEX_LESSONS.md
+HARDWARE_BASELINE.md
+KNOWN_GOOD_BUILD.md
+CHANGE_IMPACT.md
+RELEASE_MANIFEST.md
+
+Do not modify source code.
+
+Audit the repository and report only:
+1. Current version
+2. Git state
+3. Current branch/commit
+4. Build system
+5. Main source files
+6. K-Line implementation
+7. ECU data flow
+8. LVGL architecture
+9. Current pages
+10. Memory/build state
+11. Version conflicts
+12. Hardware-baseline conflicts
+13. Recovery risks
+14. Recommended known-good baseline
+
+Do not fix anything.
+Do not refactor.
+Do not create commits.
+Do not modify files.

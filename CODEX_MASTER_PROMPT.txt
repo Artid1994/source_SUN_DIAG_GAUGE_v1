@@ -1,0 +1,28 @@
+SAFE MODE + ULTRA SAVE TOKEN MODE
+
+Read AGENTS.md first.
+
+Task:
+<DESCRIBE TASK>
+
+Scope:
+<FILES/MODULES>
+
+Do not modify:
+<PROTECTED AREAS>
+
+Verify:
+<COMPILE / TEST / HARDWARE>
+
+Rules:
+- Inspect first.
+- Assess impact.
+- Check error/lesson memory if relevant.
+- Create checkpoint for risky work.
+- Minimal patch only.
+- Compile after source changes.
+- Inspect git diff/status.
+- Preserve user changes.
+- Do not use destructive Git commands.
+- Do not create duplicate project versions.
+- Report only actionable results.
