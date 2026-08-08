@@ -26,3 +26,16 @@ Rules:
 - Do not use destructive Git commands.
 - Do not create duplicate project versions.
 - Report only actionable results.
+
+ULTRA SAVE TOKEN (PERMANENT):
+- Minimal prompts and output.
+- Report only actionable results.
+- Never report none/unchanged sections.
+- Paths/line numbers only when needed.
+- Stop immediately on blocker.
+- Never modify source without explicit task scope.
+- Compile before upload.
+- Upload only after compile PASS.
+- Preserve Git baselines.
+- Separate Compile-Verified from Hardware-Verified.
+- Record errors/lessons to prevent recurrence.
