@@ -245,3 +245,11 @@ app0,     app,  ota_0,   0x10000, 0x300000,
 - **Final build verification:** `arduino-cli compile --fqbn esp32:esp32:esp32 --board-options PartitionScheme=huge_app --build-property "build.extra_flags=-I<repo>/src" .` → **EXIT=0 (PASS)**.
 - **Memory metrics:** Flash 1,801,287 B (57%), RAM 59,064 B (18%) — matches baseline.
 - **Status:** ✅ **STEP 2 COMPLETE**
+
+## 15. Documentation Standards (STEP 3 — Lead Architect)
+
+- **Versioning authority:** `src/00_SG_Config.h` — `#define SG_FIRMWARE_VERSION` — is the single authoritative source of truth for firmware versioning across **all** documentation.
+- `SG_FIRMWARE_VERSION` currently resolves to `\"1.1.1-beta17-wave110i-ecuid-unlock-20260807\"` (line 60 of `src/00_SG_Config.h`).
+- Every documentation artifact (execution/analysis reports, manifests, diagrams, AGENTS.md, release notes, etc.) must cite, reproduce, or reference this value — never invent or independently change a version string.
+- Build/label variables derived from this macro must be reconciled against `src/00_SG_Config.h`; where a doc carries a version string, it must be traceable to the header.
+- Baseline confirmed: `1.1.1-beta17-wave110i-ecuid-unlock-20260807` (matches DOCS/STEP1_ANALYSIS_REPORT.md, single-source-of-truth note).

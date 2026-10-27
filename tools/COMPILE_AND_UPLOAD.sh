@@ -10,7 +10,13 @@ FQBN="esp32:esp32:esp32"
 PORT="${SG_PORT:-/dev/ttyUSB0}"
 UPLOAD_SPEED="${SG_UPLOAD_SPEED:-921600}"
 
-SAFE_ROOT="${TMPDIR:-/tmp}/sun_diag_build"
+# QA-DEBUGGER FIX (2026-10-27): the environment's TMPDIR is set to the Hermes
+# runtime scratch dir (/home/artid1994/.hermes/cache/scratch). arduino-cli fails
+# under it with "fatal error: opening dependency file ... No such file or
+# directory" during the LVGL GPU (.d) write. Pin the safe staging root to a plain
+# /tmp so the end-to-end compile is stable. Remove this override if the
+# deployment platform provides a sane TMPDIR.
+SAFE_ROOT="/tmp/sun_diag_build"
 SAFE_PROJECT="$SAFE_ROOT/$EXPECTED_NAME"
 SAFE_BUILD="$SAFE_ROOT/build"
 SAFE_ARTIFACT="$SAFE_ROOT/artifacts"
