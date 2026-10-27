@@ -1,7 +1,7 @@
 #pragma once
-#include "07B_SG_RacingPage1Asset.h"
-#include "07C_SG_RacingPage1DayAsset.h"
-#include "07D_SG_BluetoothIconAsset.h"
+#include "assets/07B_SG_RacingPage1Asset.h"
+#include "assets/07C_SG_RacingPage1DayAsset.h"
+#include "assets/07D_SG_BluetoothIconAsset.h"
 /*
   07_SG_UI.h — SUN DIAG GAUGE v1.1.0 BETA47 — LVGL Opacity Compile Fix
 

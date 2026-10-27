@@ -1,0 +1,34 @@
+# WORKSPACE_MARKER
+# ============================================================
+# นี่คือ PRIMARY WORKING DIRECTORY ของโปรเจกต์ Smart Package
+# โปรเจกต์: source_SUN_DIAG_GAUGE_v1_1_1_BETA17_WAVE110I_ECUID_UNLOCK
+# โปรเจกต์ย่อย: SUN DIAG GAUGE v1.1.1 BETA17 WAVE110I ECUID UNLOCK (ESP32)
+# <-- ตั้งใจให้ทุกงาน/smart package อื่นใช้เป็นพื้นที่หลัก
+# ============================================================
+# โครงสร้างโปรเจกต์ (สรุป):
+#   - 33 ไฟล์ .h (config, model, K-Line decode, UI, monitor, DTC, UX, การ์ด, ฯลฯ)
+#   - 1 ไฟล์ .cpp (21_SG_FontThai14.cpp: ฟอนต์ไทย 14px สำหรับ LVGL)
+#   - 1 ไฟล์ .ino (source_SUN_DIAG_GAUGE_v1_1_1_BETA17_WAVE110I_ECUID_UNLOCK.ino: entry point)
+#   - 10 ไฟล์ .md (เอกสาร/รีเลส/ABI/ปฏิทินการทำงาน)
+#   - 1 ไฟล์ .sh (COMPILE_AND_UPLOAD.sh: build/upload)
+#   - 2 ไฟล์ .txt (CODEX_MASTER_PROMPT.txt, INITIALIZATION_AUDIT_PROMPT.txt)
+#   - .git/ ประกอบด้วยประวัติ commit ทั้งหมด
+#
+# ไฟล์หลัก (# entry points):
+#   - source_SUN_DIAG_GAUGE_v1_1_1_BETA17_WAVE110I_ECUID_UNLOCK.ino   (main loop / init)
+#   - 00_SG_Config.h            (all config macros: pins, timing, safety)
+#   - 01_SG_Model.h             (model/data tables: SG_PROFILE, GaugeData)
+#   - 02_SG_KLine.h             (K-Line protocol: send/read/validate/reconnect)
+#   - 04_SG_Decode.h            (decode group: Lead/Giorno / PCX/Click / Wave/Cub)
+#   - 07_SG_UI.h                (LVGL UI rendering)
+#   - 18_SG_AppLive.h           (mobile app JSON live packet)
+#
+# กฎการต่ออายุ/อัปเดต (update rules):
+#   1. รายการนี้ต้องอัปเดตทุกครั้งที่ย้ายงานใหม่เข้าโฟลเดอร์นี้
+#   2. เปลี่ยนชื่อโฟลเดอร์ -> อัปเดต marker และ README_WORKSPACE.md ตลอด
+#   3. ไม่ย้าย source ออกจากโฟลเดอร์นี้ เว้นแต่ได้ปรับ COMPILE_AND_UPLOAD.sh
+#   4. หลังจาก commit ใหม่ -> ตรวจสอบ git log ของ 00_SG_Config.h/01_SG_Model.h
+#      เพื่ออัปเดต version/declare ในไฟล์นี้
+# ============================================================
+# END OF MARKER
+# ============================================================

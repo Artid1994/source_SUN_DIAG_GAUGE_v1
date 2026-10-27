@@ -22,29 +22,29 @@
   - คง App Live JSON fields stft/ltft/stft_ok/ltft_ok สำหรับแอพมือถือ
 */
 
-#include "00_SG_Config.h"
-#include "01_SG_Model.h"
-#include "01A_SG_VehicleData.h"
-#include "16_SG_Language.h"
-#include "26_SG_UX_Adjustments.h"
-#include "12_SG_NVStorage.h"
-#include "03_SG_ProfileDB.h"
-#include "19_SG_EcuIdentityDB.h"
-#include "20_SG_ConfirmedDisplayDB.h"
-#include "02_SG_KLine.h"
-#include "22_SG_KLine_SafetyTransport_Core.h"
-#include "04_SG_Decode.h"
-#include "23_SG_DTC_Database.h"
-#include "05_SG_DTC.h"
-#include "08_SG_Monitor.h"
-#include "18_SG_AppLive.h"
-#include "06_SG_Engine.h"
-#include "25_SG_SmartHealth.h"
-#include "11_SG_Backlight.h"
-#include "15_SG_Watchdog.h"
-#include "17_SG_BootSlot.h"
-#include "09_SG_Input.h"
-#include "10_SG_OTA.h"
+#include "src/00_SG_Config.h"
+#include "src/01_SG_Model.h"
+#include "src/01A_SG_VehicleData.h"
+#include "src/16_SG_Language.h"
+#include "src/26_SG_UX_Adjustments.h"
+#include "src/12_SG_NVStorage.h"
+#include "src/03_SG_ProfileDB.h"
+#include "src/19_SG_EcuIdentityDB.h"
+#include "src/20_SG_ConfirmedDisplayDB.h"
+#include "src/02_SG_KLine.h"
+#include "src/22_SG_KLine_SafetyTransport_Core.h"
+#include "src/04_SG_Decode.h"
+#include "src/23_SG_DTC_Database.h"
+#include "src/05_SG_DTC.h"
+#include "src/08_SG_Monitor.h"
+#include "src/18_SG_AppLive.h"
+#include "src/06_SG_Engine.h"
+#include "src/25_SG_SmartHealth.h"
+#include "src/11_SG_Backlight.h"
+#include "src/15_SG_Watchdog.h"
+#include "src/17_SG_BootSlot.h"
+#include "src/09_SG_Input.h"
+#include "src/10_SG_OTA.h"
 
 // Forward declarations for the non-blocking Boot API.
 // 07_SG_UI.h references sgUiBootAnimationActive() before
@@ -53,9 +53,9 @@ static bool sgUiBootAnimationActive();
 static void sgUiBootAnimationTask();
 static void sgUiPlayBootAnimation();
 
-#include "07_SG_UI.h"
-#include "07A_SG_BootAnimation.h"
-#include "27_SG_ScreenCapture.h"
+#include "src/07_SG_UI.h"
+#include "src/07A_SG_BootAnimation.h"
+#include "src/27_SG_ScreenCapture.h"
 
 void setup() {
   Serial.begin(DEBUG_BAUD);
