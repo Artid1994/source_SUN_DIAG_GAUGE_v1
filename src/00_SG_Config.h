@@ -36,6 +36,7 @@
 #ifndef LV_CONF_INCLUDE_SIMPLE
 #define LV_CONF_INCLUDE_SIMPLE
 #endif
+#include "lv_conf.h" /* project LVGL config (src/lv_conf.h), resolved from src/ */
 #include <lvgl.h>
 #include <SPI.h>
 #include <string.h>

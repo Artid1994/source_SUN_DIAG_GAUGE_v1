@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 PROJECT_DIR="$SCRIPT_DIR"
 PROJECT_NAME="$(basename "$PROJECT_DIR")"
-EXPECTED_NAME="SUN_DIAG_GAUGE_v1_1_1_BETA15_BUTTON_STUCK_RELEASE_FIX"
+EXPECTED_NAME="source_SUN_DIAG_GAUGE_v1_1_1_BETA17_WAVE110I_ECUID_UNLOCK"
 PARTITION="huge_app"
-FQBN="esp32:esp32:esp32:PartitionScheme=${PARTITION}"
+FQBN="esp32:esp32:esp32"
 PORT="${SG_PORT:-/dev/ttyUSB0}"
 UPLOAD_SPEED="${SG_UPLOAD_SPEED:-921600}"
 
@@ -31,12 +31,13 @@ require_identity(){
 prepare_safe_stage(){
   rm -rf "$SAFE_PROJECT" "$SAFE_BUILD" "$SAFE_ARTIFACT"
   mkdir -p "$SAFE_PROJECT" "$SAFE_BUILD" "$SAFE_ARTIFACT"
-  find "$PROJECT_DIR" -maxdepth 1 -type f \
+  find "$PROJECT_DIR" -maxdepth 1 \( -type f -o -type d \) \
     ! -name 'BUILD_RESULT.txt' \
     ! -name '*SHA256.txt' \
     ! -name '*.log' \
-    -exec cp -f -- '{}' "$SAFE_PROJECT/" ';'
+    -exec cp -frd -- '{}' "$SAFE_PROJECT/" ';'
 }
 
 require_identity
-arduino-cli compile --fqbn "$FQBN" --build-path "$SAFE_BUILD" "$SAFE_PROJECT"
+prepare_safe_stage
+arduino-cli compile --fqbn "$FQBN" --board-options "PartitionScheme=${PARTITION}" --build-property "build.extra_flags=-I${PROJECT_DIR}/src" --build-path "$SAFE_BUILD" "$SAFE_PROJECT"
