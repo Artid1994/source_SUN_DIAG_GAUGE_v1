@@ -57,7 +57,7 @@
 #define UI_ORANGE   0xFD20
 
 // ========================= CONFIG =========================
-#define SG_FIRMWARE_VERSION     "1.1.1-beta17-wave110i-ecuid-unlock-20260807"
+#define SG_FIRMWARE_VERSION     "1.0.0-stable"
 #define SG_DB_VERSION           "HONDA-KLINE-PROFILE-DB"
 
 enum SgFontSize : uint8_t {
