@@ -8,7 +8,7 @@ Purpose: Traceable release record.
 
 | Field | Value |
 |---|---|
-| Version | `1.1.1-beta17-wave110i-ecuid-unlock-20260807` |
+| Version | `1.0.0-stable` |
 | Date | 2026-08-08 (candidate); release release-review pending |
 | Git Commit | `817da6c` (BUILD: BETA17 compile-verified baseline) |
 | Git Tag | none (pre-release; DRAFT) |

@@ -39,9 +39,10 @@ require_identity(){
   [[ "$count" -eq 1 ]] || die "Expected exactly one .ino file; found $count"
 }
 
-prepare_safe_stage(){
+prepare_safe_stage() {
   rm -rf "$SAFE_PROJECT" "$SAFE_BUILD" "$SAFE_ARTIFACT"
   mkdir -p "$SAFE_PROJECT" "$SAFE_BUILD" "$SAFE_ARTIFACT"
+  # Copy all files and directories (recursive) to preserve structure
   find "$PROJECT_DIR" -maxdepth 1 \( -type f -o -type d \) \
     ! -name 'BUILD_RESULT.txt' \
     ! -name '*SHA256.txt' \
@@ -52,3 +53,21 @@ prepare_safe_stage(){
 require_identity
 prepare_safe_stage
 arduino-cli compile --fqbn "$FQBN" --board-options "PartitionScheme=${PARTITION}" --build-property "build.extra_flags=-I${PROJECT_DIR}/src" --build-path "$SAFE_BUILD" "$SAFE_PROJECT"
+# Post-compile: copy firmware artifacts to project docs/build/
+mkdir -p "$PROJECT_DIR/docs/build"
+cp "$SAFE_BUILD/${PROJECT_NAME}.ino.bin" "$PROJECT_DIR/docs/build/"
+cp "$SAFE_BUILD/${PROJECT_NAME}.ino.partitions.bin" "$PROJECT_DIR/docs/build/"
+cp "$SAFE_BUILD/${PROJECT_NAME}.ino.elf" "$PROJECT_DIR/docs/build/"
+cp "$SAFE_BUILD/${PROJECT_NAME}.ino.merged.bin" "$PROJECT_DIR/docs/build/"
+cp "$SAFE_BUILD/${PROJECT_NAME}.ino.bootloader.bin" "$PROJECT_DIR/docs/build/"
+echo "✅ Firmware artifacts copied to docs/build/"
+
+# Generate checksum manifest
+cd "$PROJECT_DIR/docs/build"
+md5sum "${PROJECT_NAME}.ino.bin" > MD5SUMS.txt
+sha256sum "${PROJECT_NAME}.ino.bin" > SHA256SUMS.txt
+echo "✅ Checksum manifest generated: MD5SUMS.txt, SHA256SUMS.txt"
+
+# Record build metrics
+FLASH_USED=$(stat -c "%s" "${PROJECT_NAME}.ino.bin")
+echo "Build metrics: flash=${FLASH_USED} bytes ($(echo "scale=1; $FLASH_USED/3145728*100" | bc)%)"

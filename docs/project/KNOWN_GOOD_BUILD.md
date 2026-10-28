@@ -8,7 +8,7 @@ Status: **BENCH-VERIFIED** (baseline-001 — huge_app, bench, no ECU)
 
 | Field | Value |
 |---|---|
-| Version | 1.1.1-beta17-wave110i-ecuid-unlock-20260807 |
+| Version | 1.0.0-stable |
 | Commit | `817da6c` (BUILD: BETA17 compile-verified baseline) |
 | Date | 2026-08-08 (candidate); bench re-verified 2026-10-27 |
 | Board | esp32:esp32:esp32 (ESP32-2432S028) |
@@ -31,7 +31,7 @@ Legacy min_spiffs pre-build snapshot (retained; do not overwrite verified histor
 | Field | Value |
 |---|---|
 | Status | BENCH-VERIFIED → VEHICLE TEST PENDING (historical) |
-| Version | 1.1.1-beta17-wave110i-ecuid-unlock-20260807 |
+| Version | 1.0.0-stable |
 | Commit | `352361f05bd2cea446aed587178e259443296c47` |
 | Date | 2026-08-08 |
 | Board | esp32:esp32:esp32 (ESP32-2432S028) |
