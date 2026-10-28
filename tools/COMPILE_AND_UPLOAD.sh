@@ -21,6 +21,11 @@ SAFE_PROJECT="$SAFE_ROOT/$EXPECTED_NAME"
 SAFE_BUILD="$SAFE_ROOT/build"
 SAFE_ARTIFACT="$SAFE_ROOT/artifacts"
 
+# QA-DEBUGGER FIX (2026-10-27): arduino-cli lives under the ArduinoIDE home
+# directory and is not on the default PATH of the execution shell. Export it so
+# the end-to-end compile is stable out-of-the-box.
+export PATH="/home/artid1994/ArduinoIDE/bin:$PATH"
+
 LOCAL_ARTIFACT="$PROJECT_DIR/docs/build/BUILD_ARTIFACTS"
 LOCAL_LOG="$PROJECT_DIR/docs/build/BUILD_LOGS"
 
