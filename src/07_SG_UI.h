@@ -31,6 +31,14 @@ LV_FONT_DECLARE(sg_font_thai_14);
 #endif
 
 // -------------------- Display driver --------------------
+// LVGL display driver configuration:
+//  1. sgLvDrawBuf: draw buffer descriptor (2 segments, 320x16 each)
+//  2. sgLvBuf1: main color frame buffer for ILI9341 display
+//     - Size: 320 x 16 = 5,120 bytes (5 KB) per segment
+//     - Total: 2 x 5 KB = 10 KB in BSS (no heap allocation)
+//     - Rationale: 16 scanlines per segment reduces SPI flush rounds,
+//       improving rendering speed on 320x240 ILI9341.
+//     - RAM budget: 10 KB of 327,680 B dynamic memory (~3%).
 static lv_disp_draw_buf_t sgLvDrawBuf;
 static lv_color_t sgLvBuf1[320 * 16]; // SC: เพิ่มเป็น 16 scanlines ลดจำนวนรอบ flush บน SPI
 static lv_disp_drv_t sgLvDispDrv;

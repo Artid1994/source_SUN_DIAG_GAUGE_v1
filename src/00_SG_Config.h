@@ -398,6 +398,14 @@ void sgBtPrivacyTask() {
 #define SG_DRIVING_LOCK_RPM         1
 
 // ========================= SAFETY / MAINTENANCE FEATURES ==================
+// K-Line และ Watchdog safety guard:
+//  - K-Line ISO9141/Honda: RX = GPIO22, TX = GPIO27, baud = 10400, 8N1
+//  - Watchdog: enable = 1, timeout = 5 seconds (reset on stall)
+//  - PartitionScheme: huge_app (app0 = 3,145,728 B)
+//  NOTE:
+//   - Never move K-Line RX/TX pins. ESP32-2432S028 CYD hardware design locks
+//     these GPIOs; firmware will crash (WDT) if K-Line miscarries.
+//   - Do NOT change PartitionScheme to min_spiffs; sketch 1.8 MB exceeds limit.
 #define SG_WATCHDOG_ENABLE          1
 #define SG_WATCHDOG_TIMEOUT_SEC     5
 #define SG_PROFILE_OFFSET_VALIDATE  1

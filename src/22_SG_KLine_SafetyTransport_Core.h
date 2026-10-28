@@ -87,6 +87,13 @@ void sgV330SetSession(SgV330Session state) {
 }
 
 // Safety firewall: ชุดรวมนี้อนุญาตเฉพาะบริการอ่าน/วินิจฉัยที่ใช้ใน SUN DIAG GAUGE
+// Safety firewall: อนุญาตเฉพาะบริการอ่าน/วินิจฉัยที่อนุญาตโดย SUN DIAG GAUGE
+// ห้าม: Flash/EEPROM/RAM/Security/Programming/Write-to-EEPROM
+//  - 0x72 command header (ISO9141 K-Line identifier)
+//  - 0x73: Present/DTC current/aided (allowed: read-only)
+//  - 0x74: Future DTC (allowed: read-only)
+//  - 0x60 0x03: Clear DTC (allowed: clearing only)
+//  - 0x71, 0x72, 0x00: Realtime data, ECU ID, session (allowed)
 bool sgV330CommandAllowed(const uint8_t *tx, uint8_t txLen) {
   if (!tx || txLen < 4 || tx[0] != 0x72) return false;
   const uint8_t service = tx[2];

@@ -243,6 +243,7 @@ bool sgKLineWakeup() {
   digitalWrite(KLINE_TX_PIN, HIGH);
   delay(130);
   sgKLineBegin();
+  sgKLineFlushRx();
 
   uint8_t rx[48];
   uint8_t n = sgKLineSendCapture(SG_WAKEUP_FE, sizeof(SG_WAKEUP_FE),

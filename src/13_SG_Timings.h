@@ -1,10 +1,22 @@
 #pragma once
-/*
-  13_SG_Timings.h
-  รวมค่า timing/timeout ทั้งโปรเจกต์ไว้ที่เดียว
-  - ไม่เปลี่ยนลอจิกเดิม
-  - macro เก่ายังคงเป็น alias เพื่อไม่ต้องแก้โค้ดกระจายหลายไฟล์
+/* 13_SG_Timings.h
+   Project-wide timing/timeout configuration constants.
+   K-Line wakeup and protocol timing (Sony Honda diagnostic gauge):
+   - FE slow init wakeup: 70ms LOW (SG_ECU_WAKEUP_LOW_PULSE_MS=70) + 130ms HIGH
+     (SG_ECU_WAKEUP_HIGH_HOLD_MS=130) = 200ms total K-Line wakeup strobe.
+   - Wake RX timeout: 180ms per capture attempt (SG_KLINE_WAKEUP_RX_MS).
+   - Frame gap: 12ms before next frame check (SG_KLINE_RX_RESPONSE_GAP_MS).
+   - Inter-command gap: 18ms (SG_KLINE_INTER_CMD_GAP_MS).
+   - Command response timeout: 130ms (SG_KLINE_CMD_RESPONSE_TIMEOUT).
+   - ECU ID timeout: 180ms (SG_KLINE_ECU_ID_TIMEOUT_MS).
+   - DTC timeout: 400ms (SG_KLINE_DTC_TIMEOUT_MS).
+
+   ECU wake/reconnect timing:
+   - Connect retry: 1000ms (SG_ECU_CONNECT_RETRY_MS).
+   - Reconnect pause: 3000ms (SG_ECU_RECONNECT_PAUSE_MS).
+   - Wake fail pause: 5000ms (SG_ECU_WAKEUP_FAIL_PAUSE_MS).
 */
+
 
 // K-Line Communication Timing
 #define SG_KLINE_RX_RESPONSE_GAP_MS     12

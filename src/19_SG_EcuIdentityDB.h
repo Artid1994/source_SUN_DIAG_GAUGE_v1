@@ -6,6 +6,16 @@
   เพราะเกจอ่านได้เฉพาะ ECU ID และบาง ID ซ้ำหลาย Part Number/หลายรุ่น
 */
 
+// ECU Identity Database (K-Line ISO9141 Honda decoding reference table).
+// Map: Part Number -> ECU ID (4-byte hex) -> model -> year -> verify status -> confidence.
+//  -ecuId: 4-byte ECU identity code (e.g. "0101610D01")
+//  -year: production year string; "YEAR UNCONFIRMED" if not yet verified
+//  -confidence: confidence level for ID matching: สูง/กลาง/ต่ำ
+//  NOTE:
+//   - This is REFERENCE data for Monitor/Validation only.
+//   - Do NOT use this table for automatic decode; some IDs map to multiple
+//     Part Numbers/models.
+
 struct SgEcuIdentityRecord {
   const char *partNumber;
   const char *ecuId;
