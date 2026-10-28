@@ -11,7 +11,7 @@
 - 5 project documentation files created under `docs/` (+ existing legacy templates in `docs/templates/legacy-codex-era/`)
 - `scripts/` directory created with a reusable test-invocation helper
 - `tools/COMPILE_AND_UPLOAD.sh` QA-debugger-tested end-to-end → **Exit Code 0**
-- `DOCS/STEP3_EXECUTION_REPORT.md` written as the final execution summary
+- `docs/reports/STEP3_EXECUTION_REPORT.md` written as the final execution summary
 
 ---
 
@@ -23,7 +23,7 @@
 4. Create `docs/KNOWN_GOOD_BUILD.md`.
 5. Create `docs/RELEASE_MANIFEST.md`.
 6. Run a test invocation of `tools/COMPILE_AND_UPLOAD.sh` to confirm end-to-end script success.
-7. Export the complete final Step 3 execution summary to `DOCS/STEP3_EXECUTION_REPORT.md`.
+7. Export the complete final Step 3 execution summary to `docs/reports/STEP3_EXECUTION_REPORT.md`.
 
 All steps were executed against the repository's actual filesystem and git state.
 
@@ -40,7 +40,7 @@ All steps were executed against the repository's actual filesystem and git state
 | 2.5 | `docs/RELEASE_MANIFEST.md` | release manifest | ✅ |
 | 2.6 | `tools/COMPILE_AND_UPLOAD.sh` (patched) | compile + end-to-end QA test | ✅ |
 
-Existing content left untouched: `docs/templates/legacy-codex-era/`, `DOCS/STEP2_EXECUTION_REPORT.md`, `src/`, `assets/`, `tools/COMPILE_AND_UPLOAD.sh` (excluding the QA fix in §4).
+Existing content left untouched: `docs/templates/legacy-codex-era/`, `docs/reports/STEP2_EXECUTION_REPORT.md`, `src/`, `assets/`, `tools/COMPILE_AND_UPLOAD.sh` (excluding the QA fix in §4).
 
 ---
 
@@ -173,7 +173,7 @@ Reusable QA-DEBUGGER runner: executes `tools/COMPILE_AND_UPLOAD.sh`, captures ex
 ```text
  M tools/COMPILE_AND_UPLOAD.sh
 ??
-DOCS/STEP2_EXECUTION_REPORT.md
+docs/reports/STEP2_EXECUTION_REPORT.md
 docs/HARDWARE_BASELINE.md
 docs/KNOWN_GOOD_BUILD.md
 docs/PROJECT_SUMMARY.md
@@ -193,6 +193,6 @@ HEAD: `fb62f74` (2026-10-27 21:52:02 +0700) — finalize step 2 restructure, inc
 - `docs/RELEASE_MANIFEST.md` ✅ created
 - `scripts/` ✅ created (helper `run_script_test.sh`)
 - `tools/COMPILE_AND_UPLOAD.sh` QA-tested end-to-end ✅ (Exit Code 0)
-- `DOCS/STEP3_EXECUTION_REPORT.md` ✅ written (this file)
+- `docs/reports/STEP3_EXECUTION_REPORT.md` ✅ written (this file)
 
 **Step 3 COMPLETE.** Next step: functional/vehicle test gate (ECU ID, live data, DTC, display/pages, input, day/night, backlight) — see `docs/RELEASE_MANIFEST.md` RELEASE STATUS: DRAFT.

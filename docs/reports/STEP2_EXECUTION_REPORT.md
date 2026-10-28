@@ -72,7 +72,7 @@ Exact command (`git status --porcelain=v1`):
 ```text
  M src/00_SG_Config.h
  M tools/COMPILE_AND_UPLOAD.sh
-?? DOCS/STEP2_EXECUTION_REPORT.md
+?? docs/reports/STEP2_EXECUTION_REPORT.md
 ```
 
 The restructure commits (`87e52b9 chore: restructure workspace (src/ assets/ docs/ tools/) + fix includes`) are committed. The include-fix and script-default changes are applied to the working tree but left uncommitted (pending final commit). The only untracked entry is this report itself.
@@ -139,7 +139,7 @@ cd "/home/artid1994/Desktop/ห้องทำงาน/source_SUN_DIAG_GAUGE_v1
 
 ## 9. STEP2_EXECUTION_REPORT.md
 
-The final report content is recorded in this file (DOCS/STEP2_EXECUTION_REPORT.md), superseding the earlier draft's "retry with huge_app" state. This file is the approved Step 2 result.
+The final report content is recorded in this file (docs/reports/STEP2_EXECUTION_REPORT.md), superseding the earlier draft's "retry with huge_app" state. This file is the approved Step 2 result.
 
 ---
 
@@ -234,12 +234,12 @@ app0,     app,  ota_0,   0x10000, 0x300000,
 | 6 | Include patches (07_SG_UI.h→assets/; 00_SG_Config.h→13_SG_Timings.h) | ✅ PASS |
 | 7 | PartitionScheme=huge_app confirmed (app0=0x300000=3,145,728 B) | ✅ PASS |
 | 8 | Final build verification with huge_app (EXIT=0) | ✅ PASS |
-| 9 | DOCS/STEP2_EXECUTION_REPORT.md recorded & reviewed | ✅ PASS |
+| 9 | docs/reports/STEP2_EXECUTION_REPORT.md recorded & reviewed | ✅ PASS |
 
 ## 14. Final Step-2 completion
 
 - **Workspace restructure:** COMPLETE (src/ docs/ tools/ assets/ dirs, .ino at root, 34 source files in src/, 11 legacy docs archived, script in tools/).
-- **Git state:** clean commits (87e52b9 restructure + 2 source fixes); working tree shows ` M src/00_SG_Config.h`, ` M tools/COMPILE_AND_UPLOAD.sh`, `?? DOCS/STEP2_EXECUTION_REPORT.md`.
+- **Git state:** clean commits (87e52b9 restructure + 2 source fixes); working tree shows ` M src/00_SG_Config.h`, ` M tools/COMPILE_AND_UPLOAD.sh`, `?? docs/reports/STEP2_EXECUTION_REPORT.md`.
 - **Partition scheme:** `PartitionScheme=huge_app` (app0 = 0x300000 = 3,145,728 B).
 - **Script default:** `tools/COMPILE_AND_UPLOAD.sh` now defaults to `--board-options PartitionScheme=huge_app` + `--build-property build.extra_flags=-I<repo>/src` (LVGL include path).
 - **Final build verification:** `arduino-cli compile --fqbn esp32:esp32:esp32 --board-options PartitionScheme=huge_app --build-property "build.extra_flags=-I<repo>/src" .` → **EXIT=0 (PASS)**.
@@ -252,4 +252,4 @@ app0,     app,  ota_0,   0x10000, 0x300000,
 - `SG_FIRMWARE_VERSION` currently resolves to `\"1.1.1-beta17-wave110i-ecuid-unlock-20260807\"` (line 60 of `src/00_SG_Config.h`).
 - Every documentation artifact (execution/analysis reports, manifests, diagrams, AGENTS.md, release notes, etc.) must cite, reproduce, or reference this value — never invent or independently change a version string.
 - Build/label variables derived from this macro must be reconciled against `src/00_SG_Config.h`; where a doc carries a version string, it must be traceable to the header.
-- Baseline confirmed: `1.1.1-beta17-wave110i-ecuid-unlock-20260807` (matches DOCS/STEP1_ANALYSIS_REPORT.md, single-source-of-truth note).
+- Baseline confirmed: `1.1.1-beta17-wave110i-ecuid-unlock-20260807` (matches docs/reports/STEP1_ANALYSIS_REPORT.md, single-source-of-truth note).

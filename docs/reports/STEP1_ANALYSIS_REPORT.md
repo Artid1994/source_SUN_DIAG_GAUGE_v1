@@ -247,7 +247,7 @@ This is an **arduino-cli artifact**, not a source defect.
 | QA-Debugger | `STEP1_AUDIT_REPORT.md` | New, 17.8 KB — file separation plan + document cleanup blueprint + version conflicts + git state audit |
 | Core-Developer | `STEP1_AUDIT_REPORT.md` (modified) | Added §0.4–0.5 (non-source/non-relevant), §6–8 (source inventory, include map, path-change assessment) |
 | Lead-Architect | `ARCHITECTURE_MAPPING_REPORT.md` | Full structured map: inventory, doc review, entry-point analysis, include closure, PlatformIO→Arduino CLI mapping, module layer map |
-| This report | `DOCS/STEP1_ANALYSIS_REPORT.md` | Consolidated Step 1 final analysis report |
+| This report | `docs/reports/STEP1_ANALYSIS_REPORT.md` | Consolidated Step 1 final analysis report |
 
 ---
 

@@ -11,12 +11,12 @@
 
 ## 1. Objective & Scope
 
-- Stage and commit all Step 4 deliverables (`docs/TEST_GATE.md`, `DOCS/STEP4_EXECUTION_REPORT.md`).
+- Stage and commit all Step 4 deliverables (`docs/TEST_GATE.md`, `docs/reports/STEP4_EXECUTION_REPORT.md`).
 - Verify repository status cleanliness (zero untracked artifacts or dirty files).
 - Confirm `tools/COMPILE_AND_UPLOAD.sh` is ready for direct bench flashing when hardware is connected.
 - Run a final sanity build to re-verify EXIT CODE 0.
 - Cross-check `docs/TEST_GATE.md` and `docs/HARDWARE_BASELINE.md` to ensure all bench testing conditions are clear and actionable.
-- Export the final Hardware Bench Readiness Summary into `DOCS/STEP5_BENCH_READINESS_REPORT.md`.
+- Export the final Hardware Bench Readiness Summary into `docs/reports/STEP5_BENCH_READINESS_REPORT.md`.
 
 ---
 
@@ -25,9 +25,9 @@
 | # | Path | Type | Status |
 |---|---|---|---|
 | 5.1 | `tools/COMPILE_AND_UPLOAD.sh` | compile runner (path-fixed) | ✅ PASS (exit 0) |
-| 5.2 | `DOCS/STEP4_EXECUTION_REPORT.md` | Step 4 summary (already committed in `3759614`) | ✅ CREATED |
+| 5.2 | `docs/reports/STEP4_EXECUTION_REPORT.md` | Step 4 summary (already committed in `3759614`) | ✅ CREATED |
 | 5.3 | `docs/TEST_GATE.md` | pre-bench ECU-connection checklist (already committed in `3759614`) | ✅ CREATED |
-| 5.4 | `DOCS/STEP5_BENCH_READINESS_REPORT.md` | final bench readiness report (this file) | ✅ WRITTEN |
+| 5.4 | `docs/reports/STEP5_BENCH_READINESS_REPORT.md` | final bench readiness report (this file) | ✅ WRITTEN |
 | 5.5 | `467a019` | commit "finalize step 4 …" (PATH fix for `tools/COMPILE_AND_UPLOAD.sh`) | ✅ COMMITTED |
 
 ---
@@ -120,7 +120,7 @@ EXIT_CODE=0
 
 ## 6. Standard Iterative Feature-Development Loop Framework
 
-This commit finalises `DOCS/STEP5_BENCH_READINESS_REPORT.md`.
+This commit finalises `docs/reports/STEP5_BENCH_READINESS_REPORT.md`.
 
 ### 6.1 Policy
 
@@ -156,7 +156,7 @@ Future iterative feature additions and UI/protocol tweaks MUST follow this loop:
 | 5 | Cross-check TEST_GATE.md × HARDWARE_BASELINE.md | ✅ all conditions clear |
 | 6 | Export STEP5 bench readiness report | ✅ WRITTEN |
 
-**OUTPUT:** `DOCS/STEP5_BENCH_READINESS_REPORT.md` — **READY** 🚀
+**OUTPUT:** `docs/reports/STEP5_BENCH_READINESS_REPORT.md` — **READY** 🚀
 
 ```
 Sketch uses 1801287 bytes (57%) of program storage space. Maximum is 3145728 bytes.

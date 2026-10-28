@@ -13,7 +13,7 @@
 1. Execute a clean build run via `tools/COMPILE_AND_UPLOAD.sh` to confirm **0 compilation errors** post-commit.
 2. Audit the **K-Line ECU ID unlock sequence** and the **live data polling priority** in `src/02_SG_KLine.h`, `src/19_SG_EcuIdentityDB.h`, `src/04_SG_Decode.h`, `src/06_SG_Engine.h`, `src/13_SG_Timings.h`, `src/22_SG_KLine_SafetyTransport_Core.h`.
 3. Create the **pre-bench verification checklist** in `docs/TEST_GATE.md` covering ECU connection steps.
-4. Export the complete final Step 4 execution summary to `DOCS/STEP4_EXECUTION_REPORT.md`.
+4. Export the complete final Step 4 execution summary to `docs/reports/STEP4_EXECUTION_REPORT.md`.
 5. Report exact command outputs.
 
 ---
@@ -25,7 +25,7 @@
 | 4.1 | `tools/COMPILE_AND_UPLOAD.sh` | clean build (exit 0) | ✅ PASS |
 | 4.2 | Step 4 K-Line ECU ID + live data audit | findings doc | ✅ DONE |
 | 4.3 | `docs/TEST_GATE.md` | pre-bench ECU-connection checklist | ✅ CREATED |
-| 4.4 | `DOCS/STEP4_EXECUTION_REPORT.md` | final Step 4 report | ✅ WRITTEN |
+| 4.4 | `docs/reports/STEP4_EXECUTION_REPORT.md` | final Step 4 report | ✅ WRITTEN |
 
 ---
 
@@ -197,6 +197,6 @@ Working tree clean apart from the new pre-bench checklist. No source changes in 
 | 2 | K-Line ECU ID unlock sequence audit | ✅ PASS (no defect) |
 | 3 | Live data polling priority audit | ✅ PASS (no defect) |
 | 4 | Pre-bench checklist docs/TEST_GATE.md | ✅ CREATED |
-| 5 | DOCS/STEP4_EXECUTION_REPORT.md written | ✅ WRITTEN |
+| 5 | docs/reports/STEP4_EXECUTION_REPORT.md written | ✅ WRITTEN |
 
-**STEP 4 COMPLETE** — 0 compilation errors on clean build; ECU ID unlock sequence and live data polling priority audited clean; pre-bench checklist in place; execution summary exported to `DOCS/STEP4_EXECUTION_REPORT.md`.
+**STEP 4 COMPLETE** — 0 compilation errors on clean build; ECU ID unlock sequence and live data polling priority audited clean; pre-bench checklist in place; execution summary exported to `docs/reports/STEP4_EXECUTION_REPORT.md`.

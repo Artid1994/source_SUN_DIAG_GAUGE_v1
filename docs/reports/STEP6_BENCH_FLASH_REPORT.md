@@ -17,7 +17,7 @@
 - Verify the ESP32 CYD boots cleanly, initializes LVGL/TFT display assets,
   and enters K-Line initialization/standby without crash loops or WDT resets.
 - Export and write the execution summary and boot verification status to
-  `DOCS/STEP6_BENCH_FLASH_REPORT.md`.
+  `docs/reports/STEP6_BENCH_FLASH_REPORT.md`.
 
 ---
 
@@ -25,7 +25,7 @@
 
 | # | Path | Type | Status |
 |---|---|---|---|
-| 6.1 | `DOCS/STEP6_BENCH_FLASH_REPORT.md` | final bench flash + boot verification report | ✅ WRITTEN |
+| 6.1 | `docs/reports/STEP6_BENCH_FLASH_REPORT.md` | final bench flash + boot verification report | ✅ WRITTEN |
 | 6.2 | `tools/COMPILE_AND_UPLOAD.sh` | compile + upload (PATH fixed, huge_app) | ✅ committed `467a019` |
 | 6.3 | serial boot log | `/tmp/serial_boot2.log` | ✅ captured |
 | 6.4 | serial monitor output | `/tmp/serial_boot.log` | ✅ captured |
@@ -131,9 +131,9 @@ EXIT_CODE=0
 | 3 | Serial boot monitor (115200 baud) | ✅ captured |
 | 4 | Clean boot, no crash loops/WDT resets | ✅ |
 | 5 | Board enters K-Line standby (ECU not connected) | ✅ `ecu=OFF` expected |
-| 6 | Export STEP6 bench flash report | ✅ `DOCS/STEP6_BENCH_FLASH_REPORT.md` |
+| 6 | Export STEP6 bench flash report | ✅ `docs/reports/STEP6_BENCH_FLASH_REPORT.md` |
 
-**OUTPUT:** `DOCS/STEP6_BENCH_FLASH_REPORT.md` — **BENCH FLASH VERIFIED — board up & stable** 🚀
+**OUTPUT:** `docs/reports/STEP6_BENCH_FLASH_REPORT.md` — **BENCH FLASH VERIFIED — board up & stable** 🚀
 
 ```
 Sketch uses 1801287 bytes (57%) of program storage space. Maximum is 3145728 bytes.
