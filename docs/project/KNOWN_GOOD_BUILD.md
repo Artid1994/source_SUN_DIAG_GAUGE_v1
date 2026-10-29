@@ -8,9 +8,9 @@ Status: **BENCH-VERIFIED** (baseline-001 — huge_app, bench, no ECU)
 
 | Field | Value |
 |---|---|
-| Version | 1.0.0-stable |
-| Commit | `817da6c` (BUILD: BETA17 compile-verified baseline) |
-| Date | 2026-08-08 (candidate); bench re-verified 2026-10-27 |
+| Version | `1.1.0-beta1` (development baseline) |
+| Commit | `adff793` (Step 12: .ino rename + EXPECTED_NAME alignment) |
+| Date | 2026-10-28; beta branch initialized
 | Board | esp32:esp32:esp32 (ESP32-2432S028) |
 | Partition | huge_app |
 | Build Command | `tools/COMPILE_AND_UPLOAD.sh` (arduino-cli compile, exit 0) |
