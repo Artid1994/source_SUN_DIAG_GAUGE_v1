@@ -176,6 +176,9 @@ static int32_t sgLvLastPage1Tps0 = INT32_MIN;
 static int32_t sgLvLastPage1Ign10 = INT32_MIN;
 static int32_t sgLvLastPage1Bat10 = INT32_MIN;
 static int32_t sgLvLastPage1Temp = INT32_MIN;
+static int16_t sgLvLastPeakRpm = -1;   // Peak Hold: Maximum RPM
+static int16_t sgLvLastPeakEct = -1;   // Peak Hold: Maximum ECT
+static int16_t sgLvLastPeakBatt = -1;  // Peak Hold: Minimum Battery Voltage (stored as int16 to allow -1 sentinel)
 // BETA75: cache the exact quantized values shown on Page 2. Indexes match
 // sgLvDataLines[] and are reset whenever the Live Data page is rebuilt.
 static int32_t sgLvLastPage2Value[18] = {
@@ -214,6 +217,9 @@ static lv_obj_t *sgLvBt = nullptr;
 static lv_obj_t *sgLvVersion = nullptr;
 
 // Page 1
+static lv_obj_t *sgLvPeakRpm = nullptr;   // Peak Hold: Maximum RPM
+static lv_obj_t *sgLvPeakEct = nullptr;   // Peak Hold: Maximum ECT
+static lv_obj_t *sgLvPeakBatt = nullptr;  // Peak Hold: Minimum Battery Voltage
 static lv_obj_t *sgLvRpm = nullptr;
 static lv_obj_t *sgLvRpmArc = nullptr;
 static lv_obj_t *sgLvAfr = nullptr;
@@ -1077,6 +1083,10 @@ static void sgLvBuildGauge(lv_obj_t *root) {
   sgLvTemp = sgLvLabel(sgLvPanelTemp, "--", 0, 17, page1ValueColor, &lv_font_montserrat_20);
   sgLvIgn = sgLvLabel(sgLvPanelIgn, "--", 0, 17, page1ValueColor, &lv_font_montserrat_20);
   sgLvBat = sgLvLabel(sgLvPanelBat, "--", 0, 17, page1ValueColor, &lv_font_montserrat_20);
+  // Peak Hold labels: positioned below main values, right-aligned within panels
+  sgLvPeakRpm = sgLvLabel(sgLvPanelTps, "", 60, 37, SG_LV_CYAN, &lv_font_montserrat_12);
+  sgLvPeakEct = sgLvLabel(sgLvPanelTemp, "", 136, 37, SG_LV_CYAN, &lv_font_montserrat_12);
+  sgLvPeakBatt = sgLvLabel(sgLvPanelBat, "", 260, 37, SG_LV_CYAN, &lv_font_montserrat_12);
   lv_obj_t *values[4] = {sgLvTps, sgLvTemp, sgLvIgn, sgLvBat};
   for (int i = 0; i < 4; ++i) {
     lv_obj_set_width(values[i], ws[i]);
@@ -1742,6 +1752,28 @@ static void sgLvUpdateGauge(uint32_t now) {
     if (tempZone != sgLvLastTempColorZone) {
       sgLvLastTempColorZone = tempZone;
       sgLvSetTextColorIfChanged(sgLvTemp, sgLvTempColor((int)sgGauge.tempC));
+    }
+    // BETA80: Peak Hold UI update (RPM, ECT, Min Batt) - displayed on Page 1 bottom panels
+    sgLvLastPeakRpm = (sgGauge.peakRpm != sgLvLastPeakRpm) ? sgGauge.peakRpm : sgLvLastPeakRpm;
+    if (sgLvPeakRpm) {
+      const int16_t peakRpmDisplay = (int16_t)(sgGauge.peakRpm > 99999U ? 99999U : sgGauge.peakRpm);
+      snprintf(b, sizeof(b), "RPM %lu", (unsigned long)peakRpmDisplay);
+      sgLvSetText(sgLvPeakRpm, b);
+    }
+    sgLvLastPeakEct = (sgGauge.peakEct != sgLvLastPeakEct) ? sgGauge.peakEct : sgLvLastPeakEct;
+    if (sgLvPeakEct) {
+      const int16_t peakEctDisplay = (int16_t)(sgGauge.peakEct > 120 ? 120 : sgGauge.peakEct);
+      snprintf(b, sizeof(b), "TEMP %d C", (int)peakEctDisplay);
+      sgLvSetText(sgLvPeakEct, b);
+    }
+    sgLvLastPeakBatt = (sgGauge.minBatt != sgLvLastPeakBatt) ? sgGauge.minBatt : sgLvLastPeakBatt;
+    if (sgLvPeakBatt) {
+      if (sgGauge.minBatt <= 99.9f && sgGauge.minBatt > 0.0f) {
+        snprintf(b, sizeof(b), "BATT %.1f V", sgGauge.minBatt);
+      } else {
+        snprintf(b, sizeof(b), "BATT --");
+      }
+      sgLvSetText(sgLvPeakBatt, b);
     }
     sgLvUpdateAdaptiveDashboard();
   }
