@@ -4,7 +4,7 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 PROJECT_DIR="$SCRIPT_DIR"
 PROJECT_NAME="$(basename "$PROJECT_DIR")"
-EXPECTED_NAME="source_SUN_DIAG_GAUGE_v1_1_1_BETA17_WAVE110I_ECUID_UNLOCK"
+EXPECTED_NAME="source_SUN_DIAG_GAUGE_v1"
 PARTITION="huge_app"
 FQBN="esp32:esp32:esp32"
 PORT="${SG_PORT:-/dev/ttyUSB0}"
