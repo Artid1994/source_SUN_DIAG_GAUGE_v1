@@ -128,6 +128,10 @@ struct GaugeData {
   uint16_t rpm;          // ค่าที่แสดงผลบนจอ (smooth + round)
   uint16_t rpmRaw;       // ค่าดิบจาก ECU
   float rpmFiltered;     // ค่ากลางสำหรับลดการกระโดดของตัวเลข
+  // [BETA STEP 6] Peak Hold tracking: maximum RPM, maximum ECT, minimum battery voltage
+  uint16_t peakRpm;      // Maximum RPM during active session
+  int16_t peakEct;       // Maximum ECT coolant temperature during active session
+  float minBatt;         // Minimum battery voltage during active session
   float tps;
   int16_t tempC;
   float batteryV;

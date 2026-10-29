@@ -148,6 +148,10 @@ bool sgRunNextRealtimePoll() {
   return ok;
 }
 
+// Forward declarations for Peak Hold tracking
+void sgResetPeakHold(void);
+void sgUpdatePeakHold(void);
+
 void sgEngineTask() {
   const uint32_t now = millis();
   sgV330UartWatchdog();
@@ -185,4 +189,25 @@ void sgEngineTask() {
 
   sgUpdateConnectionHealth();
   sgMonitorDataTick();
+  sgUpdatePeakHold();
+}
+
+// ========================= PEAK HOLD TRACKING =========================
+void sgResetPeakHold(void) {
+  sgGauge.peakRpm = 0;
+  sgGauge.peakEct = 0;
+  sgGauge.minBatt = 99.9f;  // 99.9 = "not set" sentinel value
+}
+
+void sgUpdatePeakHold(void) {
+  // RPM Peak Hold: maximum RPM during active session
+  if (sgGauge.rpm > sgGauge.peakRpm) sgGauge.peakRpm = (uint16_t)sgGauge.rpm;
+
+  // ECT Peak Hold: maximum ECT coolant temperature during active session
+  if (sgGauge.tempC > sgGauge.peakEct) sgGauge.peakEct = sgGauge.tempC;
+
+  // Batt Min Hold: minimum battery voltage during active session
+  if (sgGauge.batteryV > 0.1f && sgGauge.batteryV < sgGauge.minBatt) {
+    sgGauge.minBatt = sgGauge.batteryV;
+  }
 }
