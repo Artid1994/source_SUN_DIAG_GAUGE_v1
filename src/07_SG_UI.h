@@ -1519,13 +1519,13 @@ static void sgLvUpdateCommon() {
 static lv_color_t sgLvAfrColor(float afr) {
   if (afr <= 0.1f) return SG_LV_DIM;
   if (sgDayThemeActive) {
-    if (afr > 15.0f) return lv_color_hex(0xFF4A3D);
-    if (afr < 10.0f) return lv_color_hex(0xFFE66D);
-    return lv_color_hex(0xFFB347);
+    if (afr >= SG_AFR_LEAN_ALERT_THRES) return lv_color_hex(0xFF9800);  // LEAN: Orange/Yellow
+    if (afr <= SG_AFR_RICH_ALERT_THRES) return lv_color_hex(0x673AB7);  // RICH: Purple
+    return lv_color_hex(0xFFB347);  // Normal: Orange
   }
-  if (afr > 15.0f) return lv_color_hex(0xFF2418);
-  if (afr < 10.0f) return lv_color_hex(0xFFE04A);
-  return lv_color_hex(0xFF9F1A);
+  if (afr >= SG_AFR_LEAN_ALERT_THRES) return lv_color_hex(0xFF6D00);   // LEAN: Dark Orange
+  if (afr <= SG_AFR_RICH_ALERT_THRES) return lv_color_hex(0x5E35B1);   // RICH: Dark Purple
+  return lv_color_hex(0xFF9F1A);  // Normal: Orange
 }
 
 static lv_color_t sgLvBatteryColor(float v) {

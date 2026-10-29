@@ -122,13 +122,13 @@ static void sgSmartHealthTask() {
 
     // AFR เตือนเมื่อมีเฟรม Aux จริงและเครื่องทำงาน เพื่อลด false warning ตอนยังไม่พร้อม
     if (sgGauge.t20Ok && sgGauge.rpm >= 1000U && sgGauge.afr > 0.1f) {
-      if (sgGauge.afr > 15.0f) {
+      if (sgGauge.afr >= SG_AFR_LEAN_ALERT_THRES) {
         if (nextSeverity < SG_SMART_WARNING) {
           nextType = SG_WARN_AFR_LEAN; nextSeverity = SG_SMART_WARNING;
           nextValue10 = (int16_t)(sgGauge.afr * 10.0f);
         }
         score = (score > 15U) ? (uint8_t)(score - 15U) : 0U;
-      } else if (sgGauge.afr < 10.0f) {
+      } else if (sgGauge.afr <= SG_AFR_RICH_ALERT_THRES) {
         if (nextSeverity < SG_SMART_WARNING) {
           nextType = SG_WARN_AFR_RICH; nextSeverity = SG_SMART_WARNING;
           nextValue10 = (int16_t)(sgGauge.afr * 10.0f);
