@@ -211,6 +211,7 @@ static lv_obj_t *sgLvHold = nullptr;
 static lv_obj_t *sgLvHoldText = nullptr;
 static lv_obj_t *sgLvFooterHint = nullptr;
 static lv_obj_t *sgLvBt = nullptr;
+static lv_obj_t *sgLvVersion = nullptr;
 
 // Page 1
 static lv_obj_t *sgLvRpm = nullptr;
@@ -1232,6 +1233,10 @@ static void sgLvBuildSetting(lv_obj_t *root) {
   const lv_color_t panel = sgLvThemePanelColor();
   lv_obj_set_style_bg_color(root, sgLvThemeRootColor(), LV_PART_MAIN);
   sgLvBuildHeader(root); sgLvBuildCleanOverlayNoFooter(root);
+  // [BETA STEP 1] Firmware version label - top-right header area
+  sgLvVersion = sgLvLabel(root, SG_FIRMWARE_VERSION, 265, 1, SG_LV_WHITE, &lv_font_montserrat_14);
+  lv_obj_set_width(sgLvVersion, 60);
+  lv_obj_set_style_text_align(sgLvVersion, LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN);
   if(sgFactoryResetConfirmActive){
     lv_obj_t *card=sgLvPanel(root,22,55,276,120); lv_obj_set_style_bg_color(card,panel,LV_PART_MAIN); lv_obj_set_style_border_color(card,red,LV_PART_MAIN); lv_obj_set_style_border_opa(card,LV_OPA_COVER,LV_PART_MAIN);
     lv_obj_t *q=sgLvLabel(root,sgLanguageThai()?"ยืนยันคืนค่าโรงงาน?":"CONFIRM FACTORY RESET?",0,70,SG_LV_ORANGE,sgLvUiFont()); lv_obj_set_width(q,320); lv_obj_set_style_text_align(q,LV_TEXT_ALIGN_CENTER,LV_PART_MAIN);
