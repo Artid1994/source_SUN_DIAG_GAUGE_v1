@@ -425,6 +425,12 @@ void sgBtPrivacyTask() {
 #define SG_MAX_CONSECUTIVE_FAIL   5
 #define SG_T17_PER_T20            3
 
+// ========================= ALERT THRESHOLDS =========================
+// ค่าที่ใช้สำหรับหน้า Settings แสดงค่าพร้อมกริดปรับได้ (ค่าปรับยังไม่ใช้งานในจอ)
+#define SG_ECT_ALERT_TEMP_C       105
+#define SG_AFR_LEAN_ALERT_THRES   15.5f
+#define SG_AFR_RICH_ALERT_THRES   11.5f
+
 // ========================= WIFI OTA =====================
 // OTA ไม่รวมใน Build หลัก ถ้าต้องการ OTA ให้ทำ Build แยกเท่านั้น
 #ifndef SG_WIFI_OTA_ENABLE

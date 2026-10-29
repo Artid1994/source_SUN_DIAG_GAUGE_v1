@@ -1244,7 +1244,7 @@ static void sgLvBuildSetting(lv_obj_t *root) {
     lv_obj_t *c=sgLvPanel(root,38,128,105,38); sgLvSettingLines[0]=sgLvLabel(c,sgLanguageThai()?"ยกเลิก":"CANCEL",0,10,SG_LV_WHITE,sgLvUiFont()); lv_obj_set_width(sgLvSettingLines[0],105); lv_obj_set_style_text_align(sgLvSettingLines[0],LV_TEXT_ALIGN_CENTER,LV_PART_MAIN);
     lv_obj_t *o=sgLvPanel(root,177,128,105,38); sgLvSettingLines[1]=sgLvLabel(o,sgLanguageThai()?"ตกลง":"OK",0,10,SG_LV_WHITE,sgLvUiFont()); lv_obj_set_width(sgLvSettingLines[1],105); lv_obj_set_style_text_align(sgLvSettingLines[1],LV_TEXT_ALIGN_CENTER,LV_PART_MAIN); return;
   }
-  const char *names[SG_SETTING_ITEM_COUNT]={sgLanguageThai()?"ตั้งค่าจอ":"DISPLAY",sgTextLocalized(SG_TEXT_LANGUAGE),sgLanguageThai()?"อ่านโค้ดอัตโนมัติ":"AUTO DTC",sgLanguageThai()?"ความสมูทค่า":"SMOOTH LEVEL",sgLanguageThai()?"สีธีม":"THEME COLOR",sgLanguageThai()?"ประเภทน้ำมัน":"FUEL TYPE",sgUxFactoryResetText()};
+  const char *names[SG_SETTING_ITEM_COUNT]={sgLanguageThai()?"ตั้งค่าจอ":"DISPLAY",sgTextLocalized(SG_TEXT_LANGUAGE),sgLanguageThai()?"อ่านโค้ดอัตโนมัติ":"AUTO DTC",sgLanguageThai()?"ความสมูทค่า":"SMOOTH LEVEL",sgLanguageThai()?"สีธีม":"THEME COLOR",sgLanguageThai()?"ประเภทน้ำมัน":"FUEL TYPE",sgUxFactoryResetText(),sgLanguageThai()?"ECT Alert 105C":"ECT Alert",sgLanguageThai()?"AFR Lean 15.5 / Rich 11.5":"AFR Alert"};
   constexpr int rowX = 6;
   constexpr int rowY = 31;
   constexpr int rowW = 308;
@@ -1277,6 +1277,16 @@ static void sgLvBuildSetting(lv_obj_t *root) {
       lv_obj_set_pos(sgLvSettingLines[i], 9, 7);
       lv_obj_set_width(sgLvSettingLines[i], rowW - 18);
       lv_obj_set_style_text_align(sgLvSettingLines[i], LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
+    }
+    if(i == SG_SETTING_ECT_ALERT){
+      sgLvSettingLines[i]=sgLvLabel(p,sgLanguageThai()?"รักษาอุณหภูมิ 105C":"ECT Alert 105C",198,7,SG_LV_WHITE,sgLvUiFont());
+      lv_obj_set_width(sgLvSettingLines[i],100);
+      lv_obj_set_style_text_align(sgLvSettingLines[i],LV_TEXT_ALIGN_RIGHT,LV_PART_MAIN);
+    }
+    if(i == SG_SETTING_AFR_ALERT){
+      sgLvSettingLines[i]=sgLvLabel(p,sgLanguageThai()?"LEAN 15.5 RICH 11.5":"AFR Alert",198,7,SG_LV_WHITE,sgLvUiFont());
+      lv_obj_set_width(sgLvSettingLines[i],100);
+      lv_obj_set_style_text_align(sgLvSettingLines[i],LV_TEXT_ALIGN_RIGHT,LV_PART_MAIN);
     }
   }
 }

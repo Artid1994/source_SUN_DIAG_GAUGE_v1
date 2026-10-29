@@ -185,6 +185,10 @@ struct GaugeSettings {
   uint8_t smoothing;
   uint8_t fuelType;
   uint8_t fontSize;
+  // [BETA STEP 2] Alert thresholds
+  uint16_t ectAlertTempC;
+  float afrLeanAlertThres;
+  float afrRichAlertThres;
 };
 
 TFT_eSPI tft = TFT_eSPI();
