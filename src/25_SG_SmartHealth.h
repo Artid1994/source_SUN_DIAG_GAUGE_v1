@@ -108,7 +108,7 @@ static void sgSmartHealthTask() {
       }
     }
 
-    if (coolantC >= 120) {
+    if (coolantC >= SG_ECT_ALERT_TEMP_C) {
       nextType = SG_WARN_TEMP_DANGER; nextSeverity = SG_SMART_DANGER;
       nextValue10 = (int16_t)(coolantC * 10);
       score = (score > 40U) ? (uint8_t)(score - 40U) : 0U;

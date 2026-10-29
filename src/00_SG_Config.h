@@ -430,6 +430,7 @@ void sgBtPrivacyTask() {
 #define SG_ECT_ALERT_TEMP_C       105
 #define SG_AFR_LEAN_ALERT_THRES   15.5f
 #define SG_AFR_RICH_ALERT_THRES   11.5f
+#define SG_ECT_ALERT_RED_HEX      0xE00018  // [BETA STEP 3] Red highlight color for ECT overheat
 
 // ========================= WIFI OTA =====================
 // OTA ไม่รวมใน Build หลัก ถ้าต้องการ OTA ให้ทำ Build แยกเท่านั้น

@@ -1535,7 +1535,7 @@ static lv_color_t sgLvBatteryColor(float v) {
 }
 
 static lv_color_t sgLvTempColor(int c) {
-  if (c >= 120) return SG_LV_RED;
+  if (c >= SG_ECT_ALERT_TEMP_C) return lv_color_hex(SG_ECT_ALERT_RED_HEX);
   if (c >= 100) return SG_LV_ORANGE;
   return sgDayThemeActive ? lv_color_hex(0x202428) : SG_LV_WHITE;
 }
