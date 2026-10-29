@@ -82,7 +82,9 @@ These values are protected and may not be changed casually. Any change requires 
 │   │   ├── MD5SUMS.txt
 │   │   ├── SHA256SUMS.txt
 │   │   └── source_SUN_DIAG_GAUGE_v1_0_0_STABLE_SNAPSHOT.tar.gz
-│   └── reports/               # Execution reports (STEP1..13)
+│   └── reports/
+│       ├── stable/              # Stable v1.0.0 & legacy execution reports (STEP1..14)
+│       └── beta/                # Active beta feature reports (BETA_STEP1..4, future steps)
 ├── docs/project/              # Project documentation
 │   ├── HARDWARE_BASELINE.md
 │   ├── PROJECT_SUMMARY.md

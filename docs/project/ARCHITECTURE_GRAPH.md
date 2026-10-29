@@ -144,6 +144,9 @@ flowchart LR
 
 ### Progression: Step Reports
 - [[STEP1_ANALYSIS_REPORT]] → [[STEP2_EXECUTION_REPORT]] → [[STEP3_EXECUTION_REPORT]] → [[STEP4_EXECUTION_REPORT]] → [[STEP5_BENCH_READINESS_REPORT]] → [[STEP6_BENCH_FLASH_REPORT]] → [[STEP7_WORKSPACE_CLEANUP_REPORT]]
+- [[STEP8_CODE_UI_AUDIT_REPORT]], [[STEP9_CODE_DOCS_AND_FIXES_REPORT]], [[STEP10_FLASH_VERIFICATION_REPORT]], [[STEP11_STABLE_V1_RELEASE_REPORT]], [[STEP12_ENTRY_FILE_ALIGNMENT_REPORT]], [[STEP13_BETA_INIT_AND_SNAPSHOT_REPORT]], [[STEP14_README_GENERATION_REPORT]]
+- Stable v1.0.0 reports: `docs/reports/stable/` (legacy & v1.0.0-stable execution reports)
+- Beta reports: `docs/reports/beta/` (active beta feature reports: BETA_STEP1..4 and future beta steps)
 
 ---
 
