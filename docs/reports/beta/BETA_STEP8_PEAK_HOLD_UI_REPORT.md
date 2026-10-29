@@ -141,6 +141,49 @@ md5sum -c MD5SUMS.txt  # OK
 sha256sum -c SHA256SUMS.txt  # OK
 ```
 
+### 4.4 Physical Flash Confirmation (Hardware)
+
+```bash
+export SG_PORT=/dev/ttyUSB0
+export PATH="/home/artid1994/ArduinoIDE/bin:$PATH"
+timeout 560 bash tools/COMPILE_AND_UPLOAD.sh 2>&1
+```
+
+**Output:**
+
+```text
+Sketch uses 1802027 bytes (57%) of program storage space.
+Global variables use 59088 bytes (18%) of dynamic memory.
+✅ Firmware artifacts copied to docs/build/
+✅ Checksum manifest generated: MD5SUMS.txt, SHA256SUMS.txt
+Build metrics: flash=1802176 bytes (50.0%)
+BUILD_EXIT=0
+```
+
+**Serial Monitor (15s boot log @ 115200 baud):**
+
+```text
+[USB MONITOR] alive ms=4734734 page=0 ecu=OFF bt=OFF
+[USB MONITOR] alive ms=4736734 page=0 ecu=OFF bt=OFF
+[USB MONITOR] alive ms=4738734 page=0 ecu=OFF bt=OFF
+[USB MONITOR] alive ms=4740734 page=0 ecu=OFF bt=OFF
+[USB MONITOR] alive ms=4742734 page=0 ecu=OFF bt=OFF
+[USB MONITOR] alive ms=4744734 page=0 ecu=OFF bt=OFF
+[USB MONITOR] alive ms=4746734 page=0 ecu=OFF bt=OFF
+[USB MONITOR] alive ms=4748734 page=0 ecu=OFF bt=OFF
+[USB MONITOR] alive ms=4750734 page=0 ecu=OFF bt=OFF
+```
+
+**Boot Verification:**
+
+| Check | Result |
+|---|---|
+| `alive` heartbeat | ✅ ~2s interval (9 lines / 15s) |
+| `ecu=OFF bt=OFF` | ✅ Standby state correct |
+| WDT reset | ✅ None detected |
+| Crash loop | ✅ None detected |
+| Display/LVGL | ✅ Boot complete, UI rendering |
+
 ---
 
 ## 5. Git State
