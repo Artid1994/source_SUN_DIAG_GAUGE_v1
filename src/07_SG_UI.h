@@ -1084,9 +1084,12 @@ static void sgLvBuildGauge(lv_obj_t *root) {
   sgLvIgn = sgLvLabel(sgLvPanelIgn, "--", 0, 17, page1ValueColor, &lv_font_montserrat_20);
   sgLvBat = sgLvLabel(sgLvPanelBat, "--", 0, 17, page1ValueColor, &lv_font_montserrat_20);
   // Peak Hold labels: positioned below main values, right-aligned within panels
-  sgLvPeakRpm = sgLvLabel(sgLvPanelTps, "", 60, 37, SG_LV_CYAN, &lv_font_montserrat_12);
-  sgLvPeakEct = sgLvLabel(sgLvPanelTemp, "", 136, 37, SG_LV_CYAN, &lv_font_montserrat_12);
-  sgLvPeakBatt = sgLvLabel(sgLvPanelBat, "", 260, 37, SG_LV_CYAN, &lv_font_montserrat_12);
+  sgLvPeakRpm = sgLvLabel(sgLvPanelTps, "", 60, 38, SG_LV_CYAN, &lv_font_montserrat_12);
+  lv_obj_set_width(sgLvPeakRpm, 95);
+  sgLvPeakEct = sgLvLabel(sgLvPanelTemp, "", 136, 38, SG_LV_CYAN, &lv_font_montserrat_12);
+  lv_obj_set_width(sgLvPeakEct, 95);
+  sgLvPeakBatt = sgLvLabel(sgLvPanelBat, "", 260, 38, SG_LV_CYAN, &lv_font_montserrat_12);
+  lv_obj_set_width(sgLvPeakBatt, 95);
   lv_obj_t *values[4] = {sgLvTps, sgLvTemp, sgLvIgn, sgLvBat};
   for (int i = 0; i < 4; ++i) {
     lv_obj_set_width(values[i], ws[i]);
@@ -1115,8 +1118,10 @@ static void sgLvBuildData(lv_obj_t *root) {
     "RPM","TPS","TPS V","TEMP","ECT V","IAT","IAT V","MAP","MAP V",
     "SPEED","BAT","INJ","IGN","AFR","O2","STFT","LTFT","IACV"
   };
+  // Data cards use panelH=21 (9 rows fit in 207px usable area)
+  const int panelH2 = 21;
   for(int i=0;i<18;++i){
-    lv_obj_t *card=sgLvPanel(root,5,28,152,27);
+    lv_obj_t *card=sgLvPanel(root,5,28,152,panelH2);
     sgLvDataPanels[i]=card;
     lv_obj_set_style_bg_color(card,panel,LV_PART_MAIN);
     lv_obj_set_style_border_color(card,accent,LV_PART_MAIN);
@@ -1124,9 +1129,9 @@ static void sgLvBuildData(lv_obj_t *root) {
     lv_obj_set_style_border_opa(card,LV_OPA_70,LV_PART_MAIN);
     lv_obj_set_style_radius(card,2,LV_PART_MAIN);
 
-    sgLvDataNames[i]=sgLvLabel(card,names[i],6,4,SG_LV_DIM,&lv_font_montserrat_12);
+    sgLvDataNames[i]=sgLvLabel(card,names[i],6,6,SG_LV_DIM,&lv_font_montserrat_12);
     lv_obj_set_width(sgLvDataNames[i],58);
-    sgLvDataLines[i]=sgLvLabel(card,"--",64,3,SG_LV_WHITE,&lv_font_montserrat_18);
+    sgLvDataLines[i]=sgLvLabel(card,"--",64,8,SG_LV_WHITE,&lv_font_montserrat_18);
     lv_obj_set_width(sgLvDataLines[i],82);
     lv_obj_set_style_text_align(sgLvDataLines[i],LV_TEXT_ALIGN_RIGHT,LV_PART_MAIN);
     lv_obj_add_flag(card,LV_OBJ_FLAG_HIDDEN);
@@ -1256,10 +1261,10 @@ static void sgLvBuildSetting(lv_obj_t *root) {
   }
   const char *names[SG_SETTING_ITEM_COUNT]={sgLanguageThai()?"ตั้งค่าจอ":"DISPLAY",sgTextLocalized(SG_TEXT_LANGUAGE),sgLanguageThai()?"อ่านโค้ดอัตโนมัติ":"AUTO DTC",sgLanguageThai()?"ความสมูทค่า":"SMOOTH LEVEL",sgLanguageThai()?"สีธีม":"THEME COLOR",sgLanguageThai()?"ประเภทน้ำมัน":"FUEL TYPE",sgUxFactoryResetText(),sgLanguageThai()?"ECT Alert 105C":"ECT Alert",sgLanguageThai()?"AFR Lean 15.5 / Rich 11.5":"AFR Alert"};
   constexpr int rowX = 6;
-  constexpr int rowY = 31;
+  constexpr int rowY = 15;
   constexpr int rowW = 308;
-  constexpr int rowH = 27;
-  constexpr int rowGap = 1;
+  constexpr int rowH = 21;
+  constexpr int rowGap = 2;
   for(int i=0;i<SG_SETTING_ITEM_COUNT;++i){
     const int y = rowY + i * (rowH + rowGap);
     lv_obj_t *p=sgLvPanel(root,rowX,y,rowW,rowH); sgLvSettingPanels[i]=p;
