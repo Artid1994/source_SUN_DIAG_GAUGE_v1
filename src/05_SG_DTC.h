@@ -43,6 +43,7 @@ bool sgDtcReadV330Group(uint8_t service,bool cur){bool got=false;for(uint8_t pg=
 bool sgDtcReadInternal(bool prep,bool reconnect){if(prep&&!sgDtcPrepareDiagnosticSession("DTC WAKEUP...")){if(reconnect)sgDtcScheduleRealtimeReconnect();return false;}bool a=sgDtcReadV330Group(0x74,true);delay(SG_KLINE_GAP_MS);bool b=sgDtcReadV330Group(0x73,false);if(reconnect)sgDtcScheduleRealtimeReconnect();return a||b;}
 bool sgDtcRead(){if(sgDtcEngineRunning()){sgDtcSetEngineRunningLock("READ");return false;}sgDtc.readOk=sgDtc.clearOk=false;sgDtc.busy=true;sgDtcClearLines();sgUiDtcLoadingPump();bool ok=sgDtcReadInternal(true,true);sgDtc.readOk=ok;sgDtc.busy=false;sgDtc.lastActionMs=millis();if(!ok)snprintf(sgDtc.status,32,"DTC %s",sgV330ResultName(sgV330LastResult));else snprintf(sgDtc.status,32,sgDtc.count?"CURRENT:%u PAST:%u":"DTC OK / NO CODE",sgDtc.currentCount,sgDtc.pastCount);return ok;}
 const char* sgDtcClearSafetyReason(){
+  if(!sgGauge.ecuConnected) return "ECU NOT CONNECTED";
   if(sgDtcEngineRunning()) return "ENGINE RUNNING";
   if(sgGauge.speedKmh>0) return "VEHICLE MOVING";
   if(sgGauge.batteryV>0 && sgGauge.batteryV<SG_DTC_CLEAR_MIN_BATTERY_V) return "BATTERY LOW";
@@ -59,6 +60,11 @@ bool sgDtcClear() {
   snprintf(sgDtc.status, sizeof(sgDtc.status), "CLEAR DISABLED");
   return false;
 #else
+  // [BETA STEP 10] Safety guard: DTC clear ONLY allowed when engine is OFF (rpm == 0)
+  if (sgGauge.rpm > 0) {
+    snprintf(sgDtc.status, sizeof(sgDtc.status), "CLEAR LOCK: ENGINE RUNNING");
+    return false;
+  }
   const char *reason = sgDtcClearSafetyReason();
   if (reason) { snprintf(sgDtc.status, sizeof(sgDtc.status), "CLEAR LOCK: %s", reason); return false; }
   sgDtc.busy = true;

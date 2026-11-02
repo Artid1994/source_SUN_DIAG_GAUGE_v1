@@ -1118,10 +1118,8 @@ static void sgLvBuildData(lv_obj_t *root) {
     "RPM","TPS","TPS V","TEMP","ECT V","IAT","IAT V","MAP","MAP V",
     "SPEED","BAT","INJ","IGN","AFR","O2","STFT","LTFT","IACV"
   };
-  // Data cards use panelH=21 (9 rows fit in 207px usable area)
-  const int panelH2 = 21;
   for(int i=0;i<18;++i){
-    lv_obj_t *card=sgLvPanel(root,5,28,152,panelH2);
+    lv_obj_t *card=sgLvPanel(root,5,28,152,27);
     sgLvDataPanels[i]=card;
     lv_obj_set_style_bg_color(card,panel,LV_PART_MAIN);
     lv_obj_set_style_border_color(card,accent,LV_PART_MAIN);
@@ -1129,9 +1127,9 @@ static void sgLvBuildData(lv_obj_t *root) {
     lv_obj_set_style_border_opa(card,LV_OPA_70,LV_PART_MAIN);
     lv_obj_set_style_radius(card,2,LV_PART_MAIN);
 
-    sgLvDataNames[i]=sgLvLabel(card,names[i],6,6,SG_LV_DIM,&lv_font_montserrat_12);
+    sgLvDataNames[i]=sgLvLabel(card,names[i],6,4,SG_LV_DIM,&lv_font_montserrat_12);
     lv_obj_set_width(sgLvDataNames[i],58);
-    sgLvDataLines[i]=sgLvLabel(card,"--",64,8,SG_LV_WHITE,&lv_font_montserrat_18);
+    sgLvDataLines[i]=sgLvLabel(card,"--",64,3,SG_LV_WHITE,&lv_font_montserrat_18);
     lv_obj_set_width(sgLvDataLines[i],82);
     lv_obj_set_style_text_align(sgLvDataLines[i],LV_TEXT_ALIGN_RIGHT,LV_PART_MAIN);
     lv_obj_add_flag(card,LV_OBJ_FLAG_HIDDEN);
@@ -1162,6 +1160,18 @@ static void sgLvBuildDtc(lv_obj_t *root) {
   sgLvDtcLines[1]=sgLvLabel(root,"",10,126,SG_LV_GREEN,sgLvUiFont()); lv_obj_set_width(sgLvDtcLines[1],300); lv_obj_set_style_text_align(sgLvDtcLines[1],LV_TEXT_ALIGN_CENTER,LV_PART_MAIN);
   for(int i=2;i<5;++i){sgLvDtcLines[i]=sgLvLabel(root,"",12,146+(i-2)*18,SG_LV_WHITE,sgLvUiFont());lv_obj_set_width(sgLvDtcLines[i],296);lv_obj_set_style_text_align(sgLvDtcLines[i],LV_TEXT_ALIGN_CENTER,LV_PART_MAIN);}
   sgLvDtcLines[5]=sgLvLabel(root,"",8,211,SG_LV_CYAN,sgLvUiFont()); lv_obj_set_width(sgLvDtcLines[5],304); lv_obj_set_style_text_align(sgLvDtcLines[5],LV_TEXT_ALIGN_CENTER,LV_PART_MAIN);
+
+  // Clear DTC button area
+  static lv_obj_t *sgDtcClearBtn = nullptr;
+  static lv_obj_t *sgDtcClearHint = nullptr;
+  if (!sgDtcClearBtn) {
+    sgDtcClearBtn = sgLvLabel(root," Clear DTC ",8,211,SG_LV_CYAN,&lv_font_montserrat_14);
+    lv_obj_set_width(sgDtcClearBtn,260);
+    lv_obj_set_style_text_align(sgDtcClearBtn,LV_TEXT_ALIGN_CENTER,LV_PART_MAIN);
+    sgDtcClearHint = sgLvLabel(root,"",8,230,SG_LV_YELLOW,sgLvUiFont());
+    lv_obj_set_width(sgDtcClearHint,300);
+    lv_obj_set_style_text_align(sgDtcClearHint,LV_TEXT_ALIGN_CENTER,LV_PART_MAIN);
+  }
 }
 
 
@@ -1261,10 +1271,10 @@ static void sgLvBuildSetting(lv_obj_t *root) {
   }
   const char *names[SG_SETTING_ITEM_COUNT]={sgLanguageThai()?"ตั้งค่าจอ":"DISPLAY",sgTextLocalized(SG_TEXT_LANGUAGE),sgLanguageThai()?"อ่านโค้ดอัตโนมัติ":"AUTO DTC",sgLanguageThai()?"ความสมูทค่า":"SMOOTH LEVEL",sgLanguageThai()?"สีธีม":"THEME COLOR",sgLanguageThai()?"ประเภทน้ำมัน":"FUEL TYPE",sgUxFactoryResetText(),sgLanguageThai()?"ECT Alert 105C":"ECT Alert",sgLanguageThai()?"AFR Lean 15.5 / Rich 11.5":"AFR Alert"};
   constexpr int rowX = 6;
-  constexpr int rowY = 15;
+  constexpr int rowY = 31;
   constexpr int rowW = 308;
-  constexpr int rowH = 21;
-  constexpr int rowGap = 2;
+  constexpr int rowH = 27;
+  constexpr int rowGap = 1;
   for(int i=0;i<SG_SETTING_ITEM_COUNT;++i){
     const int y = rowY + i * (rowH + rowGap);
     lv_obj_t *p=sgLvPanel(root,rowX,y,rowW,rowH); sgLvSettingPanels[i]=p;
@@ -1980,6 +1990,59 @@ static void sgLvUpdateDtc() {
   const char *advice = sgLvDtcAdviceText();
   sgLvSetText(sgLvDtcLines[5], (showAdvice && advice) ? advice :
               (sgLanguageThai() ? "ค้าง 5 วิ เพื่อลบ" : "HOLD 5s TO CLEAR CODES"));
+}
+
+// Confirmation popup state
+static bool sgDtcConfirmActive = false;
+static lv_obj_t *sgDtcConfirmCard = nullptr;
+static lv_obj_t *sgDtcConfirmMsg = nullptr;
+static lv_obj_t *sgDtcConfirmCancel = nullptr;
+static lv_obj_t *sgDtcConfirmOk = nullptr;
+
+static void sgDtcConfirmPopup(lv_obj_t *root, const char *msg) {
+  if (sgDtcConfirmActive) return;
+  sgDtcConfirmActive = true;
+  sgDtcConfirmCard = sgLvPanel(root, 30, 100, 260, 130);
+  lv_obj_set_style_bg_color(sgDtcConfirmCard, sgLvThemePanelColor(), LV_PART_MAIN);
+  lv_obj_set_style_border_color(sgDtcConfirmCard, SG_LV_RED, LV_PART_MAIN);
+  lv_obj_set_style_border_opa(sgDtcConfirmCard, LV_OPA_COVER, LV_PART_MAIN);
+  sgDtcConfirmMsg = sgLvLabel(sgDtcConfirmCard, msg, 15, 20, SG_LV_RED, &lv_font_montserrat_14);
+  lv_obj_set_width(sgDtcConfirmMsg, 230);
+  lv_obj_set_style_text_align(sgDtcConfirmMsg, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
+
+  lv_obj_t *cancel = sgLvPanel(sgDtcConfirmCard, 15, 70, 100, 40);
+  sgDtcConfirmCancel = sgLvLabel(cancel, "Cancel", 5, 10, SG_LV_WHITE, &lv_font_montserrat_14);
+  lv_obj_set_width(sgDtcConfirmCancel, 90);
+  lv_obj_set_style_text_align(sgDtcConfirmCancel, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
+
+  lv_obj_t *ok = sgLvPanel(sgDtcConfirmCard, 145, 70, 100, 40);
+  sgDtcConfirmOk = sgLvLabel(ok, "OK", 5, 10, SG_LV_RED, &lv_font_montserrat_14);
+  lv_obj_set_width(sgDtcConfirmOk, 90);
+  lv_obj_set_style_text_align(sgDtcConfirmOk, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
+
+  sgDtcConfirmActive = true;
+}
+
+static void sgDtcClearUserConfirmed(lv_obj_t *root) {
+  if (!sgDtcConfirmActive) return;
+  sgDtcConfirmActive = false;
+  if (sgDtcConfirmCard) lv_obj_del(sgDtcConfirmCard);
+  sgDtcConfirmCard = nullptr;
+  sgDtcConfirmOk = nullptr;
+  sgDtcConfirmCancel = nullptr;
+  sgDtcConfirmMsg = nullptr;
+  // Trigger clear
+  if (sgDtcEngineRunning()) {
+    sgDtcBlockedByEngine(sgDtc.readOk ? "CLEAR" : "READ");
+    sgShowDrivingSafetyLock();
+    return;
+  }
+  const bool cleared = sgDtcClear();
+  if (cleared) {
+    sgUiShowNoticeText(SG_TEXT_DTC_CLEAR_DONE, 2600);
+    sgDtc.readOk = false;
+  }
+  sgUiInvalidate();
 }
 
 // เรียกจาก DTC engine ระหว่างคำสั่งแบบ blocking เพื่อให้ spinner ยังเคลื่อนไหว
